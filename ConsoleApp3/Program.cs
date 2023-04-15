@@ -17,18 +17,11 @@ namespace ConsoleApp3
 
             while (playerHealth > 0 && enemyHealth > 0)
             {
-                Console.SetCursorPosition(0, 10);
-                Console.WriteLine("Заклинания: \nРашамон – призывает теневого духа для нанесения атаки (Отнимает 100 хп игроку) " +
-                    "\nХуканзакура (Может быть выполнен только после призыва теневого духа), наносит 100 ед. урона " +
-                    "\nМежпространственный разлом – позволяет скрыться в разломе и восстановить 250 хп. Урон босса по вам не проходит");
-                string playerSpell = Console.ReadLine();
-                switch (playerSpell)
-                {
-                    case "Рашамон":
+                case "Рашамон":
                         Console.Clear();
-                        Console.WriteLine($"Вы призвали духа, у вас осталось {playerHealth-100} здоровья");
+                        Console.WriteLine($"Вы призвали духа, у вас осталось {(playerHealth - 100 < 0 ? 0 : playerHealth - 100)} здоровья");
                         playerHealth -= 100;
-                        Console.WriteLine($"Босс наносит ответную атаку! Огненый шар снял вам 50 здоровья! у вас осталось {playerHealth - 50} здоровья");
+                        Console.WriteLine($"Босс наносит ответную атаку! Огненый шар снял вам 50 здоровья! у вас осталось {(playerHealth - 50 < 0 ? 0 : playerHealth - 50)} здоровья");
                         playerHealth -= 50;
                         rashamon = true;
                         break;
@@ -36,18 +29,19 @@ namespace ConsoleApp3
                         Console.Clear();
                         if (rashamon == true)
                         {
-                            Console.WriteLine($"Ваш дух бьёт босса и наносит 100 урона. Здоровье босса сейчас {enemyHealth-100}"); ;
+                            Console.WriteLine($"Ваш дух бьёт босса и наносит 100 урона. Здоровье босса сейчас {(enemyHealth - 100 < 0 ? 0 : enemyHealth - 100)}");
                             enemyHealth -= 100;
-                            Console.WriteLine($"Босс наносит ответную атаку и сносит вам 25 здоровья. У вас осталось {playerHealth-25} хп");
+                            Console.WriteLine($"Босс наносит ответную атаку и сносит вам 25 здоровья. У вас осталось {(playerHealth - 25 < 0 ? 0 : playerHealth - 25)} здоровья");
                             playerHealth -= 25;
                         }
                         else
                             Console.WriteLine("Вы не призвали духа!");
-                            break;
+                        break;
                     case "Межпространственный разлом":
                         Console.Clear();
-                        Console.WriteLine($"Вы скрылись в разломе и восстановили 250 здоровья. Ваше здоровье: {playerHealth+250}");
+                        Console.WriteLine($"Вы скрылись в разломе и восстановили 250 здоровья. Ваше здоровье: {(playerHealth + 250 > 500 ? 500 : playerHealth + 250)}");
                         playerHealth += 250;
+                        playerHealth = playerHealth > 500 ? 500 : playerHealth;
                         Console.WriteLine("Босс не смог по вам попасть.");
                         break;
                     default:
