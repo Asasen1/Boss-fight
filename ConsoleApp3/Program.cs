@@ -10,8 +10,9 @@ namespace ConsoleApp3
     {
         static void Main(string[] args)
         {
-            var playerHealth = 500;
-            var enemyHealth = 1000;
+            Random rand = new Random();
+            var playerHealth = rand.Next(100,500);
+            var enemyHealth = rand.Next(500,1000);
             bool rashamon = false;
 
             while (playerHealth > 0 && enemyHealth > 0)
